@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import UserProfile, UserFollowing, Video, Gift, ArGift, Comment, UserHistory, Notification
+from .models import UserProfile, UserFollowing, Video,Comment, UserHistory, Notification
 
 class UserProfileAdmin(admin.ModelAdmin):
     list_display = ('user', 'full_name', 'bio')
@@ -19,20 +19,6 @@ class VideoAdmin(admin.ModelAdmin):
     list_filter = ('upload_date',)
 
 admin.site.register(Video, VideoAdmin)
-
-class GiftAdmin(admin.ModelAdmin):
-    list_display = ('name', 'price')
-    search_fields = ('name',)
-    list_filter = ('price',)
-
-admin.site.register(Gift, GiftAdmin)
-
-class ArGiftAdmin(admin.ModelAdmin):
-    list_display = ('name', 'price')
-    search_fields = ('name',)
-    list_filter = ('price',)
-
-admin.site.register(ArGift, ArGiftAdmin)
 
 class CommentAdmin(admin.ModelAdmin):
     list_display = ('user', 'video', 'text', 'created_at')

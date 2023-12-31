@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     #third party apps
     'main',
     'livestream',
-    'channels',
 ]
 
 MIDDLEWARE = [
@@ -73,7 +72,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'axtrion.wsgi.application'
-ASGI_APPLICATION = 'axtrion.asgi.application'
 
 
 # Database

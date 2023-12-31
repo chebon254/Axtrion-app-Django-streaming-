@@ -33,91 +33,6 @@ def recommended_videos(request):
 
     return render(request, 'registration/recommended_videos.html', {'watched_videos': watched_videos, 'recommended_videos': recommended_videos})
 
-def post_comment(request, video_id):
-    video = get_object_or_404(Video, pk=video_id)
-    text = request.POST.get('text', '')
-
-    # Create and save the comment
-    comment = Comment(user=request.user, video=video, text=text)
-    comment.save()
-
-    # Notify live stream consumers about the new comment
-    channel_layer = get_channel_layer()
-    async_to_sync(channel_layer.group_send)(
-        'live_stream_group',
-        {
-            'type': 'send_live_stream_message',
-            'message': f'{request.user.username} commented on the video!',
-        }
-    )
-
-    return JsonResponse({'status': 'success'})
-
-def send_like(request):
-    # Process like sending logic (deduct credits, update user profile, etc.)
-
-    # Notify live stream consumers about the sent like
-    channel_layer = get_channel_layer()
-    async_to_sync(channel_layer.group_send)(
-        'live_stream_group',
-        {
-            'type': 'send_live_stream_message',
-            'message': f'{request.user.username} sent a like!',
-            'like': True,
-        }
-    )
-
-    return JsonResponse({'status': 'success'})
-
-def send_ar_gift(request, ar_gift_id):
-    ar_gift = get_object_or_404(ArGift, pk=ar_gift_id)
-    
-    # Process AR gift sending logic (deduct credits, update user profile, etc.)
-
-    # Notify live stream consumers about the sent AR gift
-    channel_layer = get_channel_layer()
-    async_to_sync(channel_layer.group_send)(
-        'live_stream_group',
-        {
-            'type': 'send_live_stream_message',
-            'message': f'{request.user.username} sent an AR gift!',
-            'ar_gift_image': ar_gift.image.url,
-        }
-    )
-
-    return JsonResponse({'status': 'success'})
-
-def send_gift(request, gift_id):
-    gift = get_object_or_404(Gift, pk=gift_id)
-    
-    # Process gift sending logic (deduct credits, update user profile, etc.)
-
-    # Notify live stream consumers about the sent gift
-    channel_layer = get_channel_layer()
-    async_to_sync(channel_layer.group_send)(
-        'live_stream_group',
-        {
-            'type': 'send_live_stream_message',
-            'message': f'{request.user.username} sent a {gift.name}!',
-        }
-    )
-
-    return JsonResponse({'status': 'success'})
-
-def send_live_stream_update(request):
-    channel_layer = get_channel_layer()
-    message = 'New live stream content!'  # Update this with your actual message or data
-
-    async_to_sync(channel_layer.group_send)(
-        'live_stream_group',  # Group name for live stream consumers
-        {
-            'type': 'send_live_stream_message',
-            'message': message,
-        }
-    )
-
-    return JsonResponse({'status': 'success'})
-
 def user_login(request):
     if request.method == 'POST':
         form = AuthenticationForm(request, request.POST)
@@ -218,9 +133,6 @@ def follow_user(request, username):
 def view_video(request, video_id):
     video = get_object_or_404(Video, id=video_id)
     return render(request, 'registration/view_video.html', {'video': video})
-
-def live_stream(request):
-    return render(request, 'registration/live_stream.html')
 
 @login_required
 def notifications(request):

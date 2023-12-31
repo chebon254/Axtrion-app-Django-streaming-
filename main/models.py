@@ -22,9 +22,9 @@ class Video(models.Model):
     category = models.CharField(max_length=10, choices=[('short', 'Short'), ('long', 'Long')])
     duration = models.PositiveIntegerField(blank=True, null=True)  # Duration in seconds
     upload_date = models.DateTimeField(auto_now_add=True)
-    thumbnail = models.ImageField(upload_to='thumbnails/', blank=True, null=True)
-    custom_thumbnail = models.ImageField(upload_to='custom_thumbnails/', blank=True, null=True)
-    file = models.FileField(upload_to='videos/')
+    thumbnail = models.ImageField(upload_to='main/thumbnails/', blank=True, null=True)
+    custom_thumbnail = models.ImageField(upload_to='main/custom_thumbnails/', blank=True, null=True)
+    file = models.FileField(upload_to='main/uploaded_videos/')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -37,22 +37,6 @@ def update_video_category(sender, instance, **kwargs):
         instance.category = 'short'
     else:
         instance.category = 'long'
-
-class Gift(models.Model):
-    name = models.CharField(max_length=255)
-    image = models.ImageField(upload_to='gifts/')
-    price = models.DecimalField(max_digits=5, decimal_places=2)
-
-    def __str__(self):
-        return self.name
-
-class ArGift(models.Model):
-    name = models.CharField(max_length=255)
-    image = models.ImageField(upload_to='ar_gifts/')
-    price = models.DecimalField(max_digits=5, decimal_places=2)
-
-    def __str__(self):
-        return self.name
 
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
