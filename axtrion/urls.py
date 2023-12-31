@@ -23,6 +23,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('main.urls')),
+    path('livestream/', include('livestream.urls')),
 ]
 # Add this to serve media files during development
 if settings.DEBUG:

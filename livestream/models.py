@@ -1,13 +1,21 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-class Livestream(models.Model):
+class LiveStream(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    title = models.CharField(max_length=255)
-    thumbnail = models.ImageField(upload_to='livestream_thumbnails/', blank=True, null=True)
-    is_live = models.BooleanField(default=False)
-    start_time = models.DateTimeField()
+    livestream_name = models.CharField(max_length=255)
+    description = models.TextField(blank=True)
+    thumbnail = models.ImageField(upload_to='thumbnails/')
+    stream_key = models.CharField(max_length=255, unique=True)
+    start_time = models.DateTimeField(auto_now_add=True)
     end_time = models.DateTimeField(null=True, blank=True)
 
-    def __str__(self):
-        return f'{self.title} - {self.user.username}'
+class Gift(models.Model):
+    name = models.CharField(max_length=255)
+    description = models.TextField()
+    image = models.ImageField(upload_to='livestream/gifts/')
+
+class Like(models.Model):
+    name = models.CharField(max_length=255)
+    description = models.TextField()
+    image = models.ImageField(upload_to='livestream/like/')

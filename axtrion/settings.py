@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     #third party apps
     'main',
     'livestream',
+    'channels',
 ]
 
 MIDDLEWARE = [
@@ -72,6 +73,17 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'axtrion.wsgi.application'
+ASGI_APPLICATION = 'axtrion.routing.application'
+
+# Channel layer settings using Redis
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            'hosts': [('127.0.0.1', 6379)],
+        },
+    },
+}
 
 
 # Database
