@@ -17,4 +17,7 @@ urlpatterns = [
     path('logout/', user_logout, name='user_logout'),
     path('notifications/', notifications, name='notifications'),
     path('user_settings/', user_settings, name='user_settings'),
+    path('account/<str:username>/', account_page, name='account_page'),
+     path('shorts/', short_video_scroll_page, name='short_video_scroll_page'),
+    path('shorts/<int:video_id>/', short_video_scroll_page, name='short_video_scroll_page_with_id'),
 ]

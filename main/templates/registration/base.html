@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Axtrion</title>
 
-    <link rel="stylesheet" href="{% static 'main/css/style.css' %}?v=2">
+    <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'main/css/shorts.css' %}">
     <link rel="apple-touch-icon" sizes="180x180" href="{% static 'main/css/favicon/apple-touch-icon.png' %}">
     <link rel="icon" type="image/png" sizes="32x32" href="{% static 'main/css/favicon/favicon-32x32.png' %}">
     <link rel="icon" type="image/png" sizes="16x16" href="{% static 'main/css/favicon/favicon-16x16.png' %}">
@@ -97,10 +98,8 @@
             </div>
             <div class="nav-links-account">
                 <div class="nav-links">
-                    <a href="{% url 'home' %}">Home</a>
-                    <a href="#">Services</a>
-                    <a href="shorts.html">Shorts</a>
-                    <a href="live_streams.html">Live</a>
+                    <a href="{% url 'short_video_scroll_page'  %}"><i class="fa-solid fa-wand-magic-sparkles"></i> Shorts</a>
+                    <a href="live_streams.html"><i class="fa-solid fa-film"></i> Live</a>
                 </div>
                 <div class="nav-account-access">
                     {% if user.is_authenticated %}
@@ -120,6 +119,7 @@
                                 {% endif %}
                             </button>
                             <div class="dropdown-content">
+                                <a href="{% url 'account_page' username=request.user.username %}"><i class="fa-solid fa-user"></i> Account</a>
                                 <a href="{% url 'user_settings' %}"><i class="fa-solid fa-gear"></i> Settings</a>
                                 <a href="{% url 'user_logout' %}"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
                             </div>

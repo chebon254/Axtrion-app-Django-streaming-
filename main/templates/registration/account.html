@@ -1,0 +1,19 @@
+{% extends 'registration/base.html' %}
+
+{% block content %}
+  <h2>{{ user.username }}'s Account Page</h2>
+
+  <h3>Uploaded Videos</h3>
+  {% for video in uploaded_videos %}
+    <p>{{ video.title }}</p>
+    <img width="240" src="{{ video.thumbnail.url }}" alt="{{ video.name }}">
+    <!-- Add other video details as needed -->
+  {% endfor %}
+
+  <h3>Short Videos</h3>
+  {% for video in short_videos %}
+    <p>{{ video.title }}</p>
+    <img width="240" src="{{ video.thumbnail.url }}" alt="{{ video.name }}">
+    <!-- Add other video details as needed -->
+  {% endfor %}
+{% endblock %}

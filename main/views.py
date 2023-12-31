@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate, logout
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.contrib.auth.decorators import login_required
 from .forms import *
 from .utils import generate_thumbnail
@@ -9,7 +9,6 @@ from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
 from .models import *
 from django.contrib import messages
-from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 
 def user_logout(request):
@@ -185,8 +184,18 @@ def home(request):
     if user.is_authenticated:
         following_users = UserFollowing.objects.filter(user=user).values_list('followed_user__username', flat=True)
 
-    videos = Video.objects.all().order_by('-upload_date')
-    return render(request, 'registration/home.html', {'videos': videos, 'following_users': following_users})
+    short_videos = Video.objects.filter(category='short')
+    long_videos = Video.objects.filter(category='long')
+    return render(request, 'registration/home.html', {'short_videos': short_videos, 'long_videos': long_videos, 'following_users': following_users})
+
+def account_page(request, username):
+    user = get_object_or_404(User, username=username)
+
+    uploaded_videos = Video.objects.filter(user=user)
+    short_videos = Video.objects.filter(user=user, category='short')
+    # liked_videos = user.userprofile.liked_videos.all()
+
+    return render(request, 'registration/account.html', {'user': user, 'uploaded_videos': uploaded_videos, 'short_videos': short_videos }) #'liked_videos': liked_videos
 
 @login_required
 def follow_user(request, username):
@@ -227,33 +236,29 @@ def notifications(request):
 
 @login_required
 def user_settings(request):
-    user = request.user
-    user_profile = user.userprofile
+    user_profile = request.user.userprofile
 
     if request.method == 'POST':
-        user_form = UserSettingsForm(request.POST, instance=user)
-        profile_image_form = ProfileImageForm(request.POST, request.FILES, instance=user_profile)
-        password_form = PasswordChangeForm(user, request.POST)
+        user_form = UserProfileForm(request.POST, request.FILES, instance=user_profile)
 
-        if user_form.is_valid() and profile_image_form.is_valid() and password_form.is_valid():
+        if user_form.is_valid():
             user_form.save()
-            profile_image_form.save()
-
-            # Only update the session if the password is not being changed
-            if not request.POST.get('new_password1') and not request.POST.get('new_password2'):
-                update_session_auth_hash(request, user)  # Update the session to prevent logout
 
             messages.success(request, 'Your profile has been updated successfully.')
             return redirect('user_settings')
         else:
             messages.error(request, 'Please correct the errors below.')
     else:
-        user_form = UserSettingsForm(instance=user)
-        profile_image_form = ProfileImageForm(instance=user_profile)
-        password_form = PasswordChangeForm(user)
+        user_form = UserProfileForm(instance=user_profile)
 
-    return render(request, 'registration/user_settings.html', {
-        'user_form': user_form,
-        'profile_image_form': profile_image_form,
-        'password_form': password_form,
-    })
+    return render(request, 'registration/user_settings.html', {'user_form': user_form})
+
+def short_video_scroll_page(request, video_id=None):
+    short_videos = Video.objects.filter(category='short')
+
+    if video_id:
+        clicked_video = get_object_or_404(Video, id=video_id, category='short')
+    else:
+        clicked_video = short_videos.first()
+
+    return render(request, 'registration/shorts.html', {'short_videos': short_videos, 'clicked_video': clicked_video})

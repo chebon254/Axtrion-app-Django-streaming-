@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -17,6 +19,7 @@ class UserFollowing(models.Model):
 class Video(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
+    category = models.CharField(max_length=10, choices=[('short', 'Short'), ('long', 'Long')])
     duration = models.PositiveIntegerField(blank=True, null=True)  # Duration in seconds
     upload_date = models.DateTimeField(auto_now_add=True)
     thumbnail = models.ImageField(upload_to='thumbnails/', blank=True, null=True)
@@ -26,6 +29,14 @@ class Video(models.Model):
 
     def __str__(self):
         return self.title
+
+# Signal to automatically update video category based on duration
+@receiver(pre_save, sender=Video)
+def update_video_category(sender, instance, **kwargs):
+    if instance.duration is not None and instance.duration <= 70:
+        instance.category = 'short'
+    else:
+        instance.category = 'long'
 
 class Gift(models.Model):
     name = models.CharField(max_length=255)

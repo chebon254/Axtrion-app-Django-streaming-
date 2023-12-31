@@ -27,12 +27,19 @@
   
 }
 .shorts-channel {
+  width: 100%;
   position: absolute !important;
   bottom: 0px;
   padding: 10px;
   z-index: 1;
 }
 .shorts-channel .top {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.channel-top-details{
   display: flex;
   align-items: center;
   justify-content: flex-start;

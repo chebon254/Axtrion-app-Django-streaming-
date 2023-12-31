@@ -1,4 +1,5 @@
 {% extends 'registration/base.html' %}
+{% load static %}
 
 {% block content %}
   <h2>User Settings</h2>
@@ -11,64 +12,44 @@
             <button id="edit-profile-button">Edit Profile</button>
         
             <form id="profile-settings-form" method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                <div class="form-control">
-                    <label for="{{ profile_image_form.image.id_for_label }}">Profile Image</label>
-                    <br><br>
-                    {{ profile_image_form.image }}
+              <div class="form-control">
+                <div class="profile-form-image" style="text-align: center !important; width: 100%;">
+                  {% if user.userprofile.image %}
+                    <img style="margin: auto !important; height: 100px; width: 100px; border-radius: 50px;" src="{{ user.userprofile.image.url }}" alt="{{ user.username }}">
+                  {% else %}
+                      <img style="margin: auto !important; height: 100px; width: 100px; border-radius: 50px;" src="{% static 'main/css/img/default/default.png' %}" alt="{{ user.username }}">
+                  {% endif %}
                 </div>
-                <div class="form-control">
-                    <label for="{{ user_form.bio.id_for_label }}">Bio</label>
-                    <br><br>
-                    {{ user_form.bio }}
-                  </div>
-                <button type="submit">Save Changes</button>
-              </form>
-          </div>
-    </div>
-    <div class="form" style="min-height: fit-content !important; padding: 10px 0px !important;">
-          <div id="password-settings">
-            <h3 id="password-settings-header">Password Settings</h3>
-            <button id="change-password-button">Change Password</button>
-        
-            <form id="password-settings-form" method="post">
-                {% csrf_token %}
-                <div class="form-control">
-                  <label for="{{ password_form.old_password.id_for_label }}">Old Password</label>
-                  <br><br>
-                  {{ password_form.old_password }}
-                </div>
-                <div class="form-control">
-                  <label for="{{ password_form.new_password1.id_for_label }}">New Password</label>
-                  <br><br>
-                  {{ password_form.new_password1 }}
-                </div>
-                <div class="form-control">
-                  <label for="{{ password_form.new_password2.id_for_label }}">Confirm New Password</label>
-                  <br><br>
-                  {{ password_form.new_password2 }}
-                </div>
-                <button type="submit">Change Password</button>
-              </form>
+              </div>
+              {% csrf_token %}
+              <div class="form-control">
+                <label for="{{ user_form.image.id_for_label }}">Profile Image</label>
+                <br><br>
+                {{ user_form.image }}
+              </div>
+              <div class="form-control">
+                <label for="{{ user_form.bio.id_for_label }}">Bio</label>
+                <br><br>
+                {{ user_form.bio }}
+              </div>
+              <button type="submit">Save Changes</button>
+            </form>
           </div>
     </div>
   </div>
-
   <script>
-    // Function to toggle visibility of profile settings form
-    function toggleProfileSettingsForm() {
-      const profileSettingsForm = document.getElementById('profile-settings-form');
-      profileSettingsForm.style.display = profileSettingsForm.style.display === 'none' ? 'block' : 'none';
-    }
+    document.addEventListener('DOMContentLoaded', function() {
+      // Hide the Clear checkbox and label
+      var clearCheckbox = document.querySelector('input[name="image-clear"]');
+      var clearLabel = document.querySelector('label[for="image-clear_id"]');
+      var clearAnchor = document.querySelector('a');
 
-    // Function to toggle visibility of password settings form
-    function togglePasswordSettingsForm() {
-      const passwordSettingsForm = document.getElementById('password-settings-form');
-      passwordSettingsForm.style.display = passwordSettingsForm.style.display === 'none' ? 'block' : 'none';
-    }
-
-    // Add event listeners to buttons
-    document.getElementById('edit-profile-button').addEventListener('click', toggleProfileSettingsForm);
-    document.getElementById('change-password-button').addEventListener('click', togglePasswordSettingsForm);
+      if (clearCheckbox && clearLabel) {
+        clearCheckbox.style.display = 'none';
+        clearLabel.style.display = 'none';
+        clearAnchor.style.display = 'none';
+      }
+    });
   </script>
+
 {% endblock %}
