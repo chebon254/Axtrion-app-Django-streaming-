@@ -1,0 +1,39 @@
+{% extends 'registration/base.html' %}
+
+{% block content %}
+    <div class="container form-container">
+        <div class="form">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                
+                <div class="form-control">
+                    <label for="{{ form.title.id_for_label }}">Title</label>
+                    <br><br>
+                    {{ form.title }}
+                </div>
+                
+                <div class="form-control">
+                    <label for="{{ form.description.id_for_label }}">Description</label>
+                    <br><br>
+                    {{ form.description }}
+                </div>
+                
+                <div class="form-control">
+                    <label for="{{ form.custom_thumbnail.id_for_label }}">Custom Thumbnail</label>
+                    <br><br>
+                    {{ form.custom_thumbnail }}
+                  </div>
+                
+                <div class="form-control">
+                    <label for="{{ form.file.id_for_label }}">Video File</label>
+                    <br><br>
+                    {{ form.file }}
+                </div>
+                
+                <br><br>
+                
+                <button type="submit">Upload</button>
+            </form>            
+        </div>
+    </div>
+{% endblock %}

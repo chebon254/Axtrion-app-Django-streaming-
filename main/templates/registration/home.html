@@ -1,0 +1,96 @@
+{% extends 'registration/base.html' %}
+
+{% load static %}
+
+{% block content %}
+    <div class="main-container container"></div>
+        {% for video in videos %}
+                <div class="video-stream">
+                    <div class="creator">
+                        <div class="video-profile">
+                            {% if video.user.userprofile.image %}
+                                <img src="{{ video.user.userprofile.image.url }}" alt="{{ video.user.username }} profile">
+                            {% else %}
+                                <img src="{% static 'main/css/img/default/default.png' %}" alt="{{ video.user.username }} profile">
+                            {% endif %}
+                            <div class="creator-following">
+                                <span class="one">{{ video.user.username }}</span> <br>
+                                <span class="two">10M+ Folowers</span>
+                            </div>
+                        </div>
+                        <div class="follow-btn">
+                            {% if video.uploader.username != request.user.username %}
+                                {% if video.uploader.username in following_users %}
+                                    <button style="background-color: #1d1d1d88 !important; color: #ffffff !important;">Unfollow</button>
+                                {% else %}
+                                    <button onclick="followUser('{{ video.user.username }}')">Follow</button>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                    <a href="{% url 'view_video' video.id %}" class="thumbnail">
+                        <img src="{{ video.thumbnail.url }}" alt="{{ video.title }} thumbnail">
+                    </a>
+                    <div class="video-details">
+                        <h3 class="video-title">{{ video.title }}</h3>
+                            <h4 class="video-time">14 hours ago</h4>
+                        <div class="video-data">
+                            <div class="vid-data">
+                                <span class="icon">
+                                    <i class="fa-solid fa-heart"></i>
+                                </span>
+                                <span class="text">10.6K</span>
+                            </div>
+                            <div class="vid-data">
+                                <span class="icon">
+                                    <i class="fa-solid fa-comment"></i>
+                                </span>
+                                <span class="text">1K</span>
+                            </div>
+                            <div class="vid-data">
+                                <span class="icon">
+                                    <i class="fa-solid fa-eye"></i>
+                                </span>
+                                <span class="text">500K</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        {% endfor %}
+    </div>
+    <script>
+        // Function to get CSRF token from cookies
+        function getCookie(name) {
+          let cookieValue = null;
+          if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+              const cookie = cookies[i].trim();
+              if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+              }
+            }
+          }
+          return cookieValue;
+        }
+      
+        function followUser(username) {
+          fetch(`/follow_user/${username}/`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-CSRFToken': getCookie('csrftoken'),
+            },
+          })
+            .then(response => response.json())
+            .then(data => {
+              console.log('User followed:', data.status);
+              // You can update the UI here (e.g., disable the follow button, show a success message)
+            })
+            .catch(error => {
+              console.error('Error following user:', error);
+            });
+        }
+      </script>
+{% endblock %}

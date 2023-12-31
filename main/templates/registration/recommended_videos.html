@@ -1,0 +1,20 @@
+<!-- main/templates/recommended_videos.html -->
+{% extends 'registration/base.html' %}
+
+{% block content %}
+  <h2>Recommended Videos</h2>
+
+  <h3>Watched Videos:</h3>
+  <ul>
+    {% for video in watched_videos %}
+      <li>{{ video.title }}</li>
+    {% endfor %}
+  </ul>
+
+  <h3>Recommended Videos:</h3>
+  <ul>
+    {% for video in recommended_videos %}
+      <li>{{ video.title }}</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

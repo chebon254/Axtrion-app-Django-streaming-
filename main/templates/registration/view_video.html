@@ -1,0 +1,97 @@
+{% extends 'registration/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="main-container container">
+    <div class="video-page">
+        <div class="video-content">
+            <video src="{{ video.file.url }}" controls></video>
+            <div class="video-view-details">
+                <h3 class="title">{{ video.title }}</h3>
+                <div class="viewage">
+                    <div class="views">
+                        <span>
+                            <i class="fa-solid fa-eye"></i>
+                        </span>
+                        <span>995 watching</span>
+                    </div>
+                    <div class="video-data">
+                        <div class="vid-data video-view">
+                            <span class="icon">
+                                <i class="fa-solid fa-heart"></i>
+                            </span>
+                            <span class="text">10.6K</span>
+                        </div>
+                        <div class="vid-data video-view">
+                            <span class="icon">
+                                <i class="fa-solid fa-share"></i>
+                            </span>
+                            <span class="text">12</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="description">
+                    <p>{{ video.description }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="video-comments">
+            <div class="comment-title">
+                <h2>Comments</h2>
+            </div>
+            <div class="comment">
+                <div class="profile">
+                    <img src="{% static 'main/css/img/profile.jpg' %}" alt="Axtrion">
+                </div>
+                <div class="text">
+                    <span class="name">Bobby</span>
+                    <span class="message">This is amazing, I love it</span>
+                </div>
+            </div>
+            <div class="comment">
+                <div class="profile">
+                    <img src="{% static 'main/css/img/profile.jpg' %}" alt="Axtrion">
+                </div>
+                <div class="text">
+                    <span class="name">Bobby</span>
+                    <span class="message">This is amazing, I love it</span>
+                </div>
+            </div>
+            <div class="comment">
+                <div class="profile">
+                    <img src="{% static 'main/css/img/profile.jpg' %}" alt="Axtrion">
+                </div>
+                <div class="text">
+                    <span class="name">Bobby</span>
+                    <span class="message">This is amazing, I love it</span>
+                </div>
+            </div>
+            <div class="comment">
+                <div class="profile">
+                    <img src="{% static 'main/css/img/profile.jpg' %}" alt="Axtrion">
+                </div>
+                <div class="text">
+                    <span class="name">Bobby</span>
+                    <span class="message">This is amazing, I love it</span>
+                </div>
+            </div>
+            <div class="comment">
+                <div class="profile">
+                    <img src="{% static 'main/css/img/profile.jpg' %}" alt="Axtrion">
+                </div>
+                <div class="text">
+                    <span class="name">Bobby</span>
+                    <span class="message">This is amazing, I love it</span>
+                </div>
+            </div>
+            <form class="add-comment">
+                <input type="text" placeholder="Comment here...">
+                <div class="emojis">
+                    <i class="far fa-smile smile_icon"></i>
+                </div>
+                <button class="btn-comment" type="submit"><i class="fa-solid fa-paper-plane"></i></button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

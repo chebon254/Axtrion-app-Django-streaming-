@@ -1,0 +1,74 @@
+{% extends 'registration/base.html' %}
+
+{% block content %}
+  <h2>User Settings</h2>
+
+
+  <div class="form-container">
+    <div class="form" style="min-height: fit-content !important;padding: 10px 0px !important;">
+        <div id="profile-settings">
+            <h3 id="profile-settings-header">Profile Settings</h3>
+            <button id="edit-profile-button">Edit Profile</button>
+        
+            <form id="profile-settings-form" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-control">
+                    <label for="{{ profile_image_form.image.id_for_label }}">Profile Image</label>
+                    <br><br>
+                    {{ profile_image_form.image }}
+                </div>
+                <div class="form-control">
+                    <label for="{{ user_form.bio.id_for_label }}">Bio</label>
+                    <br><br>
+                    {{ user_form.bio }}
+                  </div>
+                <button type="submit">Save Changes</button>
+              </form>
+          </div>
+    </div>
+    <div class="form" style="min-height: fit-content !important; padding: 10px 0px !important;">
+          <div id="password-settings">
+            <h3 id="password-settings-header">Password Settings</h3>
+            <button id="change-password-button">Change Password</button>
+        
+            <form id="password-settings-form" method="post">
+                {% csrf_token %}
+                <div class="form-control">
+                  <label for="{{ password_form.old_password.id_for_label }}">Old Password</label>
+                  <br><br>
+                  {{ password_form.old_password }}
+                </div>
+                <div class="form-control">
+                  <label for="{{ password_form.new_password1.id_for_label }}">New Password</label>
+                  <br><br>
+                  {{ password_form.new_password1 }}
+                </div>
+                <div class="form-control">
+                  <label for="{{ password_form.new_password2.id_for_label }}">Confirm New Password</label>
+                  <br><br>
+                  {{ password_form.new_password2 }}
+                </div>
+                <button type="submit">Change Password</button>
+              </form>
+          </div>
+    </div>
+  </div>
+
+  <script>
+    // Function to toggle visibility of profile settings form
+    function toggleProfileSettingsForm() {
+      const profileSettingsForm = document.getElementById('profile-settings-form');
+      profileSettingsForm.style.display = profileSettingsForm.style.display === 'none' ? 'block' : 'none';
+    }
+
+    // Function to toggle visibility of password settings form
+    function togglePasswordSettingsForm() {
+      const passwordSettingsForm = document.getElementById('password-settings-form');
+      passwordSettingsForm.style.display = passwordSettingsForm.style.display === 'none' ? 'block' : 'none';
+    }
+
+    // Add event listeners to buttons
+    document.getElementById('edit-profile-button').addEventListener('click', toggleProfileSettingsForm);
+    document.getElementById('change-password-button').addEventListener('click', togglePasswordSettingsForm);
+  </script>
+{% endblock %}

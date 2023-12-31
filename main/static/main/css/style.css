@@ -1,0 +1,400 @@
+* {
+  text-decoration: none;
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  outline: none;
+  border: 0;
+  font-family: "Roboto", sans-serif;
+}
+body {
+  background-color: #ffffff;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: auto !important;
+}
+
+nav {
+  height: fit-content;
+  width: 100%;
+  background-color: #1d1d1d;
+  padding: 20px 0px;
+}
+.nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 16px;
+}
+.nav-links-account {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav-links a {
+  padding: 0px 10px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #ffffff;
+}
+.nav-account-access {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 0px 0px 20px;
+}
+.nav-account-access a {
+  font-size: 16px;
+  font-weight: 500;
+  color: #ffffff;
+  padding: 5px 10px;
+}
+.nav-account-access a:hover {
+  color: #ff1e56;
+}
+.notification-bell {
+  position: relative;
+  font-size: 20px;
+  color: #ffffff;
+}
+.notifcation-status {
+  height: 10px;
+  width: 10px;
+  border-radius: 5px;
+  background-color: #ff1e56;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
+.main-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-wrap: wrap;
+  background-color: #fafafa;
+  padding: 20px 16px;
+}
+
+.video-stream {
+  height: fit-content;
+  width: 100%;
+  max-width: 380px;
+  min-width: 280px;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #ffffff;
+  margin: 10px;
+}
+.creator {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 0px 10px;
+}
+.video-profile {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.video-profile img {
+  height: 60px;
+  width: 60px;
+  border-radius: 30px;
+}
+.creator-following {
+  width: 120px;
+  padding: 0px 10px 0px;
+}
+.creator-following span.one {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1d1d1d;
+}
+.creator-following span.two {
+  font-size: 12px;
+  font-weight: 400;
+  color: #1d1d1d;
+}
+.follow-btn button {
+  height: 40px;
+  width: 120px;
+  border-radius: 2px;
+  background-color: #ff1e56;
+  font-size: 14px;
+  font-weight: 500;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.thumbnail {
+  max-height: 200px;
+  max-width: 360px;
+  width: 100%;
+  margin: auto;
+  position: relative;
+  display: block;
+}
+.video-container {
+  position: relative;
+}
+.live-status {
+  padding: 5px 20px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+  color: #ffffff;
+  background-color: #ff1e56;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: 0px;
+}
+.thumbnail img {
+  max-height: 200px;
+  max-width: 360px;
+  width: 100%;
+  border-radius: 16px;
+  margin: auto;
+}
+h3.video-title {
+  font-size: 18px;
+  font-weight: 500;
+  color: #1d1d1d;
+  margin: 10px 0px;
+}
+h4.video-time {
+  font-size: 12px;
+  font-weight: 400;
+  color: #1d1d1d;
+}
+.video-data {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 10px 0px 0px;
+}
+.vid-data {
+  text-align: center;
+  margin: 0px 5px 0px 0px;
+}
+.vid-data span.icon {
+  background-color: #fafafa;
+  height: 40px;
+  width: 40px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.vid-data span.text {
+  font-size: 12px;
+  font-weight: 400;
+  color: #1d1d1d;
+}
+
+.video-page {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.video-content {
+  width: 100%;
+  max-width: 960px;
+}
+.video-content video {
+  aspect-ratio: 16/9;
+  width: 100%;
+}
+.video-comments {
+  width: 100%;
+  max-width: 280px;
+  padding: 0px 10px 10px;
+}
+.video-comments .comment {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 10px 0px;
+}
+
+.comment .text {
+  display: block;
+  padding: 0px 10px;
+}
+.comment .text span {
+  display: block;
+}
+.comment .text span.name {
+  font-size: 16px;
+  font-weight: 500;
+  color: #1d1d1d;
+}
+.comment .text span.message {
+  font-size: 14px;
+  font-weight: 400;
+  color: #1d1d1d;
+}
+
+.video-view-details h3.title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1d1d1d;
+  margin: 10px 0px 0px;
+}
+.video-view-details p {
+  font-size: 14spx;
+  font-weight: 400;
+  color: #555555;
+  margin: 6px 0px 0px;
+}
+
+.viewage {
+  padding: 0px 0px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.vid-data.video-view {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-left: 10px;
+}
+
+.vid-data.video-view span.icon {
+  background-color: #ff1e56;
+  color: #ffffff;
+  height: 40px;
+  width: 40px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.add-comment {
+  height: fit-content;
+  width: 100%;
+  padding: 20px 0px 0px;
+  position: relative;
+}
+.add-comment input {
+  border: 1px solid #dddddd;
+  width: 100%;
+  height: 40px;
+  padding: 0px 50px 0px 10px;
+}
+.btn-comment {
+  position: absolute;
+  right: 10px;
+  top: 30px;
+  font-size: 20px;
+  color: #ff1e56;
+  background-color: #1d1d1d00;
+}
+.emojis {
+  position: absolute;
+  right: 40px;
+  top: 30px;
+  font-size: 20px;
+  color: #555555;
+}
+
+/* == Login & Register Pages == */
+.form-container{
+  padding: 20px 16px;
+}
+.form {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.form form {
+  width: 100%;
+  max-width: 500px;
+  min-width: 280px;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 20px 30px;
+}
+.form-control {
+  padding: 10px 0px;
+  width: 100%;
+}
+
+.form-control h1 {
+  color: #1d1d1d;
+}
+.form-control p {
+  margin: 10px 0px 0px;
+  font-weight: 500;
+  color: #1d1d1d;
+}
+p.account-related {
+  text-align: center !important;
+}
+p.account-related a {
+  padding: 0px 4px;
+  color: #945b69;
+}
+p.account-related a:hover {
+  color: #ff1e56;
+}
+.form-control label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #1d1d1d;
+}
+
+.form-control input {
+  height: 50px;
+  width: 100%;
+  outline: none;
+  border: 1px solid #f2f0f9;
+  font-size: 14px;
+  font-weight: 500;
+  color: #1d1d1d;
+  border-radius: 16px;
+  padding: 0px 16px;
+}
+
+.form-control textarea{
+  min-height: 100px !important;
+  width: 100% !important;
+  outline: none;
+  border: 1px solid #f2f0f9;
+  font-size: 14px;
+  font-weight: 500;
+  color: #1d1d1d;
+  border-radius: 16px;
+  padding: 10px 16px;
+}
+.form button {
+  height: 50px;
+  width: 100%;
+  outline: none;
+  border: 1px solid #f2f0f9;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1d1d1d;
+  border-radius: 10px;
+  padding: 0px 16px;
+  background-color: #f2f0f9;
+}
+.form button:hover {
+  background-color: #ff1e56;
+  color: #ffffff;
+}
+/* == || Login & Register Pages == */
