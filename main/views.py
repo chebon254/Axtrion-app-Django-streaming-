@@ -10,6 +10,8 @@ from asgiref.sync import async_to_sync
 from .models import *
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
+from django.db import IntegrityError
+from django.db import transaction
 
 def user_logout(request):
     logout(request)
@@ -46,8 +48,10 @@ def user_login(request):
                 return redirect('home')
             else:
                 messages.error(request, 'Invalid username or password.')
+
     else:
         form = AuthenticationForm()
+
     return render(request, 'registration/login.html', {'form': form})
 
 def signup(request):
@@ -56,14 +60,36 @@ def signup(request):
         profile_form = UserProfileForm(request.POST, request.FILES)
         if form.is_valid() and profile_form.is_valid():
             user = form.save()
-            profile = profile_form.save(commit=False)
-            profile.user = user
-            profile.save()
-            login(request, user)
-            return redirect('home')
+            
+            try:
+                with transaction.atomic():
+                    # Try to get the existing profile or create a new one
+                    profile, created = UserProfile.objects.get_or_create(user=user)
+                    if not created:
+                        # Update the existing profile
+                        profile_form = UserProfileForm(request.POST, request.FILES, instance=profile)
+                        profile_form.save()
+
+                    # Save the profile (either new or updated)
+                    profile = profile_form.save(commit=False)
+                    profile.user = user
+                    profile.save()
+
+                    login(request, user)
+                    messages.success(request, 'Account created successfully!')
+                    return redirect('home')
+
+            except IntegrityError:
+                # Handle the case where a profile was created concurrently by another request
+                messages.error(request, 'There was an issue creating your account. Please try again.')
+
+        else:
+            messages.error(request, 'Username is taken')
+
     else:
         form = SignUpForm()
         profile_form = UserProfileForm()
+
     return render(request, 'registration/signup.html', {'form': form, 'profile_form': profile_form})
 
 @login_required
@@ -131,8 +157,9 @@ def follow_user(request, username):
         return JsonResponse({'status': 'cannot_follow_yourself'})
 
 def view_video(request, video_id):
-    video = get_object_or_404(Video, id=video_id)
-    return render(request, 'registration/view_video.html', {'video': video})
+    videos = get_object_or_404(Video, id=video_id)
+    context = {'video': videos}
+    return render(request, 'registration/view_video.html', context)
 
 @login_required
 def notifications(request):

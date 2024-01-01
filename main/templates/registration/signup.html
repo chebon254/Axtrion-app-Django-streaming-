@@ -1,6 +1,14 @@
 {% extends 'registration/base.html' %}
 
 {% block content %}
+<style>
+    .messages p.error{
+        color: #ff435f !important;
+    }
+    .messages p.success{
+        color: #43ff8b !important;
+    }
+</style>
   <div class="container form-container">
       <div class="form">
         <form method="post">
@@ -8,6 +16,13 @@
             <div class="form-control">
                 <h1>Sign up</h1>
                 <p>Create your account.</p>
+                {% if messages %}
+                    <div class="messages">
+                        {% for message in messages %}
+                            <p {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
             </div>
             <div class="form-control">
                 <label for="{{ form.username.id_for_label }}">Username</label>

@@ -40,8 +40,6 @@ INSTALLED_APPS = [
     
     #third party apps
     'main',
-    'livestream',
-    'channels',
 ]
 
 MIDDLEWARE = [
@@ -73,18 +71,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'axtrion.wsgi.application'
-ASGI_APPLICATION = 'axtrion.routing.application'
-
-# Channel layer settings using Redis
-CHANNEL_LAYERS = {
-    'default': {
-        'BACKEND': 'channels_redis.core.RedisChannelLayer',
-        'CONFIG': {
-            'hosts': [('127.0.0.1', 6379)],
-        },
-    },
-}
-
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
@@ -132,13 +118,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS = [BASE_DIR / "main/static"]
+STATICFILES_DIRS = [BASE_DIR / 'main/static']
 
 import os
 
 # Add this at the end of the file
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = 'media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'main/media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

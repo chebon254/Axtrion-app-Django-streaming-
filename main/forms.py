@@ -25,7 +25,7 @@ class UserProfileForm(forms.ModelForm):
 
     class Meta:
         model = UserProfile
-        fields = ['image', 'bio']
+        fields = ['image', 'full_name', 'bio']
         
 class VideoForm(forms.ModelForm):
     class Meta:
